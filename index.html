@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>主页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<link rel="stylesheet" type="text/css" href="./css/index.css" />
+		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+	
+	</head>
+
+	<body>
+		<div class="Content">
+			<!-- 顶部内容 -->
+			<div class="ContentHeader">
+				<div class="CodeName">
+					<div class="CodeNameTitle">Rw代号</div>
+					<div class="CodeNameNumber">01-022</div>
+				</div>
+				<div class="Changebuton">
+					<span><button id="ImportData">导入数据</button></span>
+					<span><button id="Searchbtn">查询</button></span>
+					<span><button>删除节点</button></span>
+					<span>
+						<button>
+							<a class="down" href="" download="downImg" style="color: #FFFFFF;">导出</a>
+						</button>
+
+					</span>
+					<span><button id="Savechbtn">保存</button></span>
+				</div>
+			</div>
+			<!-- 中间部分内容 -->
+			<div class="ContentMiddle">
+				<div class="SidebarDemo">
+					<button class="drag-wrap fr" id='TopEvent'>
+						<div class="drag-box" draggable="true">顶事件控件</div>
+					</button>
+					<button class="drag-wrap fr" id="MiddleEvent">
+						<div class="drag-box" draggable="true">中间事件控件</div>
+					</button>
+					<button>
+						<div id="TypeidBox">
+							<div>运算符控件</div>
+							<div class="RightImg"><img src="img/right.png"></div>
+						</div>
+						<div id="Typeid">
+							<ul>
+								<li>与门</li>
+								<li>或门</li>
+							</ul>
+						</div>
+					</button>
+				</div>
+				<div class="RightDemo">
+					<!-- 查询弹出框 -->
+					<div class="Inquiredialog">
+						<div class="InquiredialogContent">
+							<div class="InquireDeatil">查询故障树</div>
+							<div class="InquireDeatildemo">
+								<span class="InquireDeatiltitle">故障树名称 :</span>
+								<span><input type="text" placeholder="请输入要查询的故障树名称" class="InquiredeatilInput"></input></span>
+							</div>
+							<div class="ChangesButtons">
+								<button class="ConfirmBtn">确定</button>
+								<button class="CanceBtn">取消</button>
+							</div>
+						</div>
+					</div>
+					<!-- 导入数据弹出框 -->
+
+					<div class="ImportDatadialog">
+						<div class="InquireDeatil">导入数据</div>
+						<div id="wrap">
+							<div id="tit">
+								<button class="select">选择参数</button>
+								<button>加载参数文件</button>
+							</div>
+							<ul id="con">
+								<li class="showx">
+									<div class="ShowDemoOne">
+										<div class="ImportCons">
+											<div>
+												<span>表号:</span>
+												<span><input type="text" placeholder="请输入表号" class="ImportconsNumber"></span>
+											</div>
+											<div>
+												<span>序号:</span>
+												<span><input type="text" placeholder="请输入序号" class="ImportconsNumber"></span>
+											</div>
+											<button class="ImportSearch">查询</button>
+										</div>
+										<div><button class="ImportUploads">上传理论参数</button></div>
+									</div>
+									<div class="TablesContents">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>表号</th>
+													<th>序号</th>
+													<th>参数名称</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>0000</td>
+													<td>1111</td>
+													<td>参数1</td>
+												</tr>
+												<tr>
+													<td>0001</td>
+													<td>2222</td>
+													<td>参数2</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</li>
+								<li class="LoadParameter">
+									<div class="UploadFiles">
+										<span class="UploadFilesDemo">上传文件:</span>
+										<span><input type="file" name="" id=""></span>
+									</div>
+									<div class="UploadFiles">
+										<span class="UploadFilesDemo">上传理论参数:</span>
+										<span><input type="file" name="" id=""></span>
+									</div>
+									<div class="UploadFiles">
+										<span class="UploadFilesDemo">导入判据:</span>
+										<span><input type="file" name="" id=""></span>
+									</div>
+									<div class="UploadFiles">
+										<span>
+											<button class="Interpretation">判读结果</button>
+										</span>
+										<span class="Resultsh">正常</span>
+									</div>
+
+								</li>
+							</ul>
+						</div>
+						<div class="ChangesButtons">
+							<button class="ConfirmBtn2">确定</button>
+							<button class="CanceBtn2">取消</button>
+						</div>
+					</div>
+					<!-- 存放故障树容器 -->
+					<div id="container">
+						<textarea id="text"></textarea>
+					</div>
+					<!-- 点击顶事件控件之后的弹框 -->
+					<div class="TopControl">
+						<div class="InquireDeatil">顶级门或分支信息</div>
+						<div class="TopControltitle">
+							<span class="TopcontroltitleName">标题</span>
+							<span class="TopcontroltitleInput">
+								<input type="text" maxlength="10" placeholder="请输入顶事件的名称" />
+							</span>
+						</div>
+						<div class="TopControltitle">
+							<span class="TopcontroltitleName">备注</span>
+							<span class="TopcontroltitleInput">
+								<input type="text" maxlength="10" placeholder="请输入顶事件的备注" />
+							</span>
+						</div>
+						<div class="TopControlType">
+							<div class="TopcontroltitleName TopcontroltitleName2">类型</div>
+							<div id="dd" class="wrapper-dropdown-3">
+								<span>请选择顶事件运算符类型</span>
+								<ul class="dropdown">
+									<li><a href="#">与门</a></li>
+									<li><a href="#">或门</a></li>
+									<li><a href="#">底事件</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="TopeventChangesButtons">
+							<button class="TopeventConfirmBtn">确定</button>
+							<button class="TopeventCanceBtn">取消</button>
+						</div>
+					</div>
+
+					<!-- 点中间事件控件之后的弹框 -->
+					<div class="MiddleControl">
+						<div class="InquireDeatil">中间事件或分支信息</div>
+						<div class="TopControltitle">
+							<span class="TopcontroltitleName">标题</span>
+							<span class="TopcontroltitleInput">
+								<input type="text" maxlength="10" placeholder="请输入中间事件的名称" />
+							</span>
+						</div>
+						<div class="TopControltitle">
+							<span class="TopcontroltitleName">备注</span>
+							<span class="TopcontroltitleInput">
+								<input type="text" maxlength="10" placeholder="请输入中间事件的备注" />
+							</span>
+						</div>
+						<div class="TopControlType">
+							<div class="TopcontroltitleName TopcontroltitleName2">类型</div>
+							<div id="dd2" class="wrapper-dropdown-2">
+								<span>请选择中间事件运算符类型</span>
+								<ul class="dropdown2">
+									<li><a href="#">与门</a></li>
+									<li><a href="#">或门</a></li>
+									<li><a href="#">底事件</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="MiddleEventChangesButtons">
+							<button class="MiddleeventConfirmBtn">确定</button>
+							<button class="MiddleeventCanceBtn">取消</button>
+						</div>
+					</div>
+			
+				</div>
+			</div>
+	</body>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/g6.min.js"></script>
+	<script src="./js/FileSaver.js"></script>
+	<script src="./js/FaultTree.js"></script>
+	<script src="./js/html2canvas.js"></script>
+
+	<script type="text/javascript">
+		//建议使用G6引擎编写故障树（https://g6.antv.vision/zh/examples/gallery）
+		$(document).ready(function() {
+			// 运算符号的展示和隐藏
+			$("#TypeidBox").click(function() {
+				$(".RightImg").toggle();
+				$("#Typeid").toggle();
+			});
+			// 点击查询按钮
+			$('#Searchbtn').click(function() {
+				$('.Inquiredialog').css('display', 'block');
+				$('.ImportDatadialog').css('display', 'none');
+				$('.TopControl').css('display', 'none');
+				$('.MiddleControl').css('display', 'none');
+			})
+			// 取消查询
+			$('.CanceBtn').click(function() {
+				$('.Inquiredialog').css('display', 'none')
+			})
+			$('#container').css('display', 'none');
+			// 查询点击确定后(把故障树保存成json数据，然后通过json数据对故障树渲染)
+			$('.ConfirmBtn').click(function() {
+				$('#container').css('display', 'block');
+				alert('导入故障树成功');
+				$('.Inquiredialog').css('display', 'none');
+			})
+		});
+		// 导入数据
+		$('#ImportData').click(function() {
+			$('.ImportDatadialog').css('display', 'block');
+			$('.Inquiredialog').css('display', 'none');
+			$('.TopControl').css('display', 'none');
+			$('.MiddleControl').css('display', 'none');
+			$('#container').css('display', 'none');
+		})
+		// 取消导入数据
+		$('.CanceBtn2').click(function() {
+			$('.ImportDatadialog').css('display', 'none')
+		})
+		// 导入数据点击确定后
+		$('.ConfirmBtn2').click(function() {
+			alert('导入数据成功')
+			$('.ImportDatadialog').css('display', 'none');
+			$('.TopControl').css('display', 'none');
+		})
+		$('#tit button').click(function() {
+			var i = $(this).index();
+			$(this).addClass('select').siblings().removeClass('select');
+			$('#con li').eq(i).show().siblings().hide();
+		});
+		$(function() {
+			$("tbody tr").click(function() {
+				$("tbody tr").eq($(this).index()).addClass("cur").siblings().removeClass("cur");
+			})
+		})
+		// 导出成word（导出图片，建议用html2canvas.js）
+		$(document).ready(function() {
+			$("#ExportByn").on("click", function(event) {
+				alert('导出图片');
+			});
+		});
+
+		$('#Savechbtn').click(function() {
+			alert('用户点击了保存按钮')
+		})
+
+		//顶事件控件弹出框
+		$('#TopEvent').click(function() {
+			$('.TopControl').css('display', 'block');
+			$('.MiddleControl').css('display', 'none');
+			$('.Inquiredialog').css('display', 'none');
+			$('.ImportDatadialog').css('display', 'none');
+			$('#container').css('display', 'none');
+		});
+		$('.TopeventCanceBtn').click(function() {
+			// 顶事件弹框中用户点击了取消
+			alert('取消成功');
+			$('.TopControl').css('display', 'none')
+		})
+		// 顶事件弹框中用户点击确定后
+		$('.TopeventConfirmBtn').click(function() {
+			alert('顶事件添加成功');
+			$('.TopControl').css('display', 'none');
+		});
+
+		function DropDown(el) {
+			this.dd = el;
+			this.placeholder = this.dd.children('span');
+			this.opts = this.dd.find('ul.dropdown > li');
+			this.val = '';
+			this.index = -1;
+			this.initEvents();
+		}
+		DropDown.prototype = {
+			initEvents: function() {
+				var obj = this;
+				obj.dd.on('click', function(event) {
+					$(this).toggleClass('active');
+					return false;
+				});
+
+				obj.opts.on('click', function() {
+					var opt = $(this);
+					obj.val = opt.text();
+					obj.index = opt.index();
+					obj.placeholder.text(obj.val);
+				});
+			},
+			getValue: function() {
+				return this.val;
+			},
+			getIndex: function() {
+				return this.index;
+			}
+		}
+		$(function() {
+			var dd = new DropDown($('#dd'));
+			$(document).click(function() {
+				// all dropdowns
+				$('.wrapper-dropdown-3').removeClass('active');
+			});
+		});
+
+		// 中间事件
+		$('#MiddleEvent').click(function() {
+			$('.MiddleControl').css('display', 'block');
+			$('.TopControl').css('display', 'none');
+			$('.Inquiredialog').css('display', 'none');
+			$('.ImportDatadialog').css('display', 'none');
+			$('#container').css('display', 'none');
+		})
+		$('.MiddleeventCanceBtn').click(function() {
+			// 用户点击了中间事件的取消按钮
+			$('.MiddleControl').css('display', 'none')
+		})
+		// 用户点击中间事件的确定后
+		$('.MiddleeventConfirmBtn').click(function() {
+			alert('中间事件添加成功');
+			$('.MiddleControl').css('display', 'none');
+		})
+
+		function DropDown2(el) {
+			this.dd2 = el;
+			this.placeholder = this.dd2.children('span');
+			this.opts = this.dd2.find('ul.dropdown2 > li');
+			this.val = '';
+			this.index = -1;
+			this.initEvents();
+		}
+		DropDown2.prototype = {
+			initEvents: function() {
+				var obj = this;
+				obj.dd2.on('click', function(event) {
+					$(this).toggleClass('active');
+					return false;
+				});
+
+				obj.opts.on('click', function() {
+					var opt = $(this);
+					obj.val = opt.text();
+					obj.index = opt.index();
+					obj.placeholder.text(obj.val);
+				});
+			},
+			getValue: function() {
+				return this.val;
+			},
+			getIndex: function() {
+				return this.index;
+			}
+		}
+		$(function() {
+			var dd2 = new DropDown2($('#dd2'));
+			$(document).click(function() {
+				// all dropdowns
+				$('.wrapper-dropdown-2').removeClass('active');
+			});
+		});
+	</script>
+
+</html>
