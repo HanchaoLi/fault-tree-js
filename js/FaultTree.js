@@ -366,3 +366,7 @@ graph.on('node:click', (evt) => {
 // 	});
 // 	var ers = 111;
 // }
+
+function function_name(argument) {
+	// body...
+}
