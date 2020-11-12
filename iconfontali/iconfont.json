@@ -1,0 +1,23 @@
+{
+  "id": "2199274",
+  "name": "myproject",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10587479",
+      "name": "或门",
+      "font_class": "huomen",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "10587483",
+      "name": "与门",
+      "font_class": "yumen",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    }
+  ]
+}

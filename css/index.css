@@ -42,11 +42,15 @@ ul li {
 	display: flex;
 	justify-content: space-between;
 	color: #EEDA6C;
+	background: url(../img/titlebg.png) no-repeat;
+	background-size: 101%;
+	height: 90px;
+
 }
 
 .CodeName {
 	display: flex;
-	margin: 26px;
+	margin:16px 26px ;
 	margin-left: 60px;
 }
 
@@ -55,10 +59,21 @@ ul li {
 	font-weight: bold;
 }
 
+.Gztree {
+	font-size: 30px;
+	font-weight: bold;
+	color: #FFFFFF;
+	margin: 14px;
+	flex:1;
+	text-align: center;
+	margin-left: 170px;
+}
+
 .CodeNameNumber {
 	border: 1.4px solid #91BCE7;
 	margin-left: 30px;
-	width: 120px;
+	width: 210px;
+	height: 30px;
 	text-align: center;
 	padding: 3px;
 	color: #FFFFFF;
@@ -70,8 +85,8 @@ ul li {
 }
 
 .Changebuton {
-	margin: 26px;
-	margin-right: 120px;
+	margin: 16px;
+	margin-right: 60px;
 }
 
 .Changebuton span button {
@@ -109,7 +124,7 @@ ul li {
 	background-color: #FFFFFF;
 	background: url(../img/jd_model_bg_icon.png);
 	flex: 1;
-	margin: 10px 20px 0 20px;
+	margin: 0px 20px 0 20px;
 	height: 90vh;
 	background-size: 15px;
 	background-repeat: repeat;
@@ -214,12 +229,12 @@ ul li {
 /* 故障树 */
 
 #text {
-	display: none;
+	/* 	display: none;
 	width: 220px;
 	height: 30px;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: ;
+	left: 0; */
 }
 
 /* 导入数据弹出框 */
@@ -363,8 +378,8 @@ ul li {
 .MiddleControl {
 	display: none;
 	background-color: #FFFFFF;
-	width: 700px;
-	height: 369px;
+	width: 500px;
+	height: 286px;
 	margin: 0 auto;
 	position: fixed;
 	right: 50%;
@@ -375,7 +390,7 @@ ul li {
 }
 
 .TopControltitle {
-	margin: 30px 50px;
+	margin: 12px 50px;
 }
 
 .TopcontroltitleName {
@@ -387,14 +402,14 @@ ul li {
 .TopcontroltitleInput input {
 	border: 1px solid #9e9e9e;
 	height: 40px;
-	width: 400px;
+	width: 200px;
 	padding: 10px;
 	border-radius: 7px;
 }
 
 .wrapper-dropdown-3 {
 	position: relative;
-	width: 400px;
+	width: 200px;
 	height: 40px;
 	border: 1px solid #9e9e9e;
 	border-radius: 7px;
