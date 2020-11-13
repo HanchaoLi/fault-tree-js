@@ -103,7 +103,7 @@ G6.registerNode(
 				attrs: {
 					text: cfg.text,
 					fontFamily: 'iconfont',
-					x: 47 - w / 2,
+					x: 46.7 - w / 2,
 					y: 67 - h / 2,
 					fontSize: 26,
 					stroke: '#91d5ff',
@@ -328,7 +328,7 @@ graph.node((node) => {
 	} = node;
 	return {
 		...node,
-		// label: node.,
+		label: node.id,
 	}
 });
 // 点击切换与门和或门
