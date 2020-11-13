@@ -8,14 +8,14 @@
     {
       "icon_id": "10587479",
       "name": "或门",
-      "font_class": "huomen",
+      "font_class": "or",
       "unicode": "e693",
       "unicode_decimal": 59027
     },
     {
       "icon_id": "10587483",
       "name": "与门",
-      "font_class": "yumen",
+      "font_class": "and",
       "unicode": "e694",
       "unicode_decimal": 59028
     }

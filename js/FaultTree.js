@@ -20,35 +20,29 @@ const EXPAND_ICON = function EXPAND_ICON(x, y, r) {
 		['L', x, y - 2],
 	];
 };
-// const img = new Image();
-// img.src = 'https://wx1.sinaimg.cn/mw690/007ZngdVly1gkk4dr8tsbj303k03kdfo.jpg';
-
-// // 点击图片节点，切换背景图片
-// const img2 = new Image();
-// img2.src = 'https://wx2.sinaimg.cn/mw690/007ZngdVly1gkk4drge2aj303k03kmwy.jpg';
 // 虚拟JSON数据
 const data = {
-	id: 'Top',
-	label: 'Top',
+	id: 'topid',
+	label: '我是备注',
+	titleh:'我是标题',
 	value: '1',
 	oper: 'and',
 	text: '\ue694',
-	// img: img.src,
 	children: [{
-			id: 'c1',
-			label: 'c1',
+			id: 'c1id',
+			titleh:'我是c1标题',
+			label: '我是c1备注',
 			value: '1',
 			oper: 'or',
 			text: '\ue693',
-			// img: img.src,
 		},
 		{
-			id: 'c2',
-			label: 'c2',
+			id: 'c2id',
+			titleh:'我是c2标题',
+			label: '我是c2备注',
 			value: '0',
 			oper: 'or',
 			text: '\ue693',
-			// img: img.src,
 		}
 	]
 };
@@ -81,6 +75,7 @@ G6.registerNode(
 			const h = styles.height;
 
 			//向分组中添加新的图形。addShape(type, cfgs)
+			// 添加矩形
 			const keyShape = group.addShape('rect', {
 				attrs: { //图形样式，必须配置
 					...styles,
@@ -103,31 +98,16 @@ G6.registerNode(
 				name: 'add-item', //图形的标识，可以不唯一
 			});
 
-			// group.addShape('image', {
-			// 	attrs: {
-			// 		x: 52 - w / 2,
-			// 		y: 46 - h / 2,
-			// 		width: 15,
-			// 		height: 15,
-			// 		img: 'https://g.alicdn.com/cm-design/arms-trace/1.0.155/styles/armsTrace/images/TAIR.png',
-			// 		// x: 40 - w / 3,
-			// 		// y: 52 - h / 3,
-			// 		// r: 6,
-			// 		// stroke: '#000',
-			// 		// lineWidth: 4,
-			// 		// cursor: 'pointer',
-			// 		// symbol: COLLAPSE_ICON, //新增的加号  中间的这个
-			// 	},
-			// 	name: 'operation',
-			// });
+	
 			group.addShape('text', {
 				attrs: {
 					text: cfg.text,
 					fontFamily: 'iconfont',
-					x: 46.7 - w / 2,
-					y: 66 - h / 2,
+					x: 47 - w / 2,
+					y: 67 - h / 2,
 					fontSize: 26,
 					stroke: '#91d5ff',
+					fill:'#91d5ff',
 				},
 				// must be assigned in G6 3.3 and later versions. it can be any value you want
 				name: 'operation',
@@ -153,7 +133,7 @@ G6.registerNode(
 				group.addShape('text', {
 					attrs: {
 						...labelCfg.style,
-						text: '标题: ' + cfg.id,
+						text: '标题: ' + cfg.titleh,
 						x: 10 - w / 2,
 						y: 15 - h / 2,
 					},
@@ -218,9 +198,9 @@ const defaultStateStyles = {
 
 // 节点的样式
 const defaultNodeStyle = {
-	fill: '#55d8ff',
-	stroke: '#40a9ff',
-	radius: 5,
+	fill: '#ffffff',
+	stroke: '#91d5ff',
+	radius: 1,
 };
 
 //边的样式
@@ -251,7 +231,7 @@ const defaultLayout = {
 	},
 	//获取每个节点的垂直间隙
 	getVGap: function getVGap() {
-		return 40;
+		return 60;
 	},
 	//获取每个节点的水平间隙
 	getHGap: function getHGap() {
@@ -277,13 +257,14 @@ const graph = new G6.TreeGraph({
 	height, //指定画布高度
 	linkCenter: true, //指定边是否连入节点的中心
 	modes: {
-		default: ['drag-canvas', 'zoom-canvas', ] //设置画布的模式
+		default: ['drag-canvas', 'zoom-canvas', 'collapse-expand-group'] //设置画布的模式
 	},
+	
 	defaultNode: { //默认状态下节点的配置，比如 type, size, color。会被写入的 data 覆盖。
 		type: 'icon-node',
 		size: [120, 40],
 		style: defaultNodeStyle,
-
+		
 		labelCfg: defaultLabelCfg,
 	},
 	defaultEdge: { //默认状态下边的配置
@@ -328,9 +309,7 @@ graph.node((node) => {
 		label: node.id,
 	}
 });
-
-
-// 双击节点改变ID 备注 值
+// 双击节点改变ID 备注 值的弹框
 graph.on('node:dblclick', function(e) {
 	$('.TopControl').css('display', 'block');
 	console.log(this)
@@ -342,19 +321,17 @@ graph.on('node:dblclick', function(e) {
 	}
 	currEvent = e;
 });
-
 // 交互事件的监听
-
-
 graph.node((node) => {
 	const {
 		labelCfg = {}, icon = {}, linkPoints = {}, style = {}
 	} = node;
 	return {
 		...node,
-		label: node.id,
+		// label: node.,
 	}
 });
+// 点击切换与门和或门
 graph.on('operation:click', function(evt) {
 	const {
 		item,
@@ -364,21 +341,24 @@ graph.on('operation:click', function(evt) {
 	const targetType = target.get('type');
 	if (item._cfg.model.oper == 'and') {
 		item._cfg.model.oper = 'or';
-		console.log(item._cfg.model);
-		if(item._cfg.model.oper == 'or'){
-			item._cfg.model.text = '\ue693';
-		}
-	
+		const model = {
+			text: '\ue693',
+		};
+		graph.updateItem(item, model);
+
 	} else {
 		item._cfg.model.oper = 'and';
-		if(item._cfg.model.oper = 'and'){
-			item._cfg.model.text = '\ue694';
-		}
+		item._cfg.model.text = '\ue694';
+		const model = {
+			text: '\ue694',
+		
+		};
+		graph.updateItem(item, model);
+		console.log(item._cfg.model.text, '我是and')
 	}
 });
 //鼠标单击节点时触发
 graph.on('node:click', (evt) => {
-
 	const {
 		item,
 		target
@@ -393,13 +373,15 @@ graph.on('node:click', (evt) => {
 			if (!model.children) {
 				model.children = [];
 			}
-			const ids = `new${Math.random()}`;
-			id = ids.substring(0, 8)
+			const randoms = `new${Math.random()}`;
+			id = randoms.substring(0, 8)
 			model.children.push({
 				id,
-				label: id.substr(0, 5),
-				oper:'and',
-				text:'\ue694'
+				
+				oper: 'and',
+				text: '\ue694',
+				titleh:'新标题',
+				value:'1'
 			});
 			graph.updateChild(model, model.id);
 		} else if (name === 'remove-item') { //移除
@@ -459,9 +441,9 @@ function okBtn() {
 	let value = document.getElementById('value').value;
 	console.log(e)
 	thit.updateItem(node, {
-		id: title,
-		label: note,
-		value: value
+		titleh: title,
+		label:note,
+		value:value
 	})
 
 	document.getElementById('title').value = '';
